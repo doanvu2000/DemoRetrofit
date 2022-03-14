@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Thay đổi ngôn ngữ</string>
+    <string name="tv_welcome">Xin chào</string>
+    <string name="btnEnglish">Tiếng Anh</string>
+    <string name="btnVietnamese">Tiếng Việt</string>
+</resources>
