@@ -15,12 +15,15 @@ class PhotoViewModel : ViewModel() {
     //    val musicList by lazy {
 //        MutableLiveData<List<Music>>()
 //    }
+
     private val photoRepository by lazy {
         PhotoRepository()
     }
     val photoList by lazy {
         MutableLiveData<List<Photo>>()
     }
+    var progressStatus: MutableLiveData<Boolean> = MutableLiveData(false)
+
 
     fun getPhotos(
         onComplete: ((data: List<Photo>) -> Unit)? = null
@@ -35,6 +38,7 @@ class PhotoViewModel : ViewModel() {
                 list.map { item ->
                     photos.add(item)
                 }
+                progressStatus.postValue(true)
                 onComplete?.invoke(photos)
             }
         }

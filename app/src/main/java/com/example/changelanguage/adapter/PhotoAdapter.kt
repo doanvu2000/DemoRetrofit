@@ -1,5 +1,6 @@
 package com.example.changelanguage.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.changelanguage.R
 import com.example.changelanguage.model.Photo
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_photo.view.*
 
 class PhotoAdapter(val photoList: List<Photo>) :
@@ -15,7 +17,7 @@ class PhotoAdapter(val photoList: List<Photo>) :
         fun bindData(photo: Photo) {
             itemView.tvId.text = "${photo.id}"
             itemView.tvTitle.text = photo.title
-            Glide.with(itemView).load(photo.thumbnailUrl).into(itemView.image)
+            Picasso.get().load(photo.url).into(itemView.image)
         }
 
     }

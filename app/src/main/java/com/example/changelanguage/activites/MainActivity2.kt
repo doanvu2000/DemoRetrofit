@@ -3,12 +3,16 @@ package com.example.changelanguage.activites
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.changelanguage.R
 import com.example.changelanguage.adapter.PhotoAdapter
+import com.example.changelanguage.model.Photo
 import com.example.changelanguage.viewmodel.PhotoViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main2.*
 
 private const val TAG = "MainActivity2"
@@ -26,13 +30,29 @@ class MainActivity2 : AppCompatActivity() {
 
     private fun setUpRecyclerView() {
         val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        viewModel.getPhotos {
-
+        viewModel.getPhotos {}
+        val data: MutableList<Photo> = ArrayList()
+        viewModel.progressStatus.observe(this){
+            if (!it){
+                progressPhoto.visibility = View.VISIBLE
+            }else{
+                progressPhoto.visibility = View.INVISIBLE
+            }
         }
-        viewModel.photoList.observe(this){
-            val photoAdapter = PhotoAdapter(it)
-            rcvPhoto.layoutManager = layout
-            rcvPhoto.adapter = photoAdapter
+        viewModel.photoList.observe(this) { it ->
+            data.addAll(it)
+            Log.d(TAG, "setUpRecyclerView: ${data.size}")
+            val photoAdapter = PhotoAdapter(data)
+            rcvPhoto.apply {
+                layoutManager = layout
+                adapter = photoAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        baseContext,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
         }
     }
 
