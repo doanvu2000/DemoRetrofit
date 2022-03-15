@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.changelanguage">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChangeLanguage">
+        <activity
+            android:name=".activites.DetailPhotoActivity"
+            android:exported="false" />
         <activity
             android:name=".activites.MainActivity2"
             android:exported="true">
@@ -21,9 +25,7 @@
         </activity>
         <activity
             android:name=".activites.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

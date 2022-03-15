@@ -13,6 +13,12 @@ import kotlinx.android.synthetic.main.item_photo.view.*
 
 class PhotoAdapter(val photoList: List<Photo>) :
     RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+
+    private var onClickItem: ((position: Int) -> Unit)? = null
+    fun setOnClickItem(event: ((position: Int) -> Unit)) {
+        onClickItem = event
+    }
+
     inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(photo: Photo) {
             itemView.tvId.text = "${photo.id}"
@@ -20,6 +26,11 @@ class PhotoAdapter(val photoList: List<Photo>) :
             Picasso.get().load(photo.url).into(itemView.image)
         }
 
+        init {
+            itemView.setOnClickListener {
+                onClickItem?.invoke(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {

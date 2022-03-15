@@ -1,5 +1,6 @@
 package com.example.changelanguage.activites
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -32,10 +33,10 @@ class MainActivity2 : AppCompatActivity() {
         val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewModel.getPhotos {}
         val data: MutableList<Photo> = ArrayList()
-        viewModel.progressStatus.observe(this){
-            if (!it){
+        viewModel.progressStatus.observe(this) {
+            if (!it) {
                 progressPhoto.visibility = View.VISIBLE
-            }else{
+            } else {
                 progressPhoto.visibility = View.INVISIBLE
             }
         }
@@ -52,6 +53,11 @@ class MainActivity2 : AppCompatActivity() {
                         DividerItemDecoration.VERTICAL
                     )
                 )
+            }
+            photoAdapter.setOnClickItem {
+                val intent = Intent(baseContext, DetailPhotoActivity::class.java)
+                intent.putExtra("photo", data[it])
+                startActivity(intent)
             }
         }
     }
